@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { PokedexScreen, PokemonForm } from "../../components";
-import * as SERVICE from "../../service/supabase";
+
 
 export default function Pokedex() {
   const [pokemon, setPokemon] = useState<any>(null);
@@ -15,12 +15,6 @@ export default function Pokedex() {
     );
     const data = await response.json();
     setPokemon(data);
-    const user = await SERVICE.getCurrentUser();
-    await SERVICE.store({
-      data,
-      name,
-      user_id: user?.user.id as string,
-    });
     setName("");
   };
 
@@ -59,13 +53,8 @@ export default function Pokedex() {
       </div>
       <div className="pokedex-right-front" />
       <div className="pokedex-right-back" />
-      <button onClick={SERVICE.signInWithGitHub}>Login con github</button>
-      <button
-        onClick={async () => {
-          const user = await SERVICE.getCurrentUser();
-          console.log("dd", user);
-        }}
-      >
+      <button>Login con github</button>
+      <button>
         Mostrar usuario
       </button>
     </div>
